@@ -1,0 +1,21 @@
+services:
+  python-client:
+    build:
+      dockerfile: ./client.Dockerfile
+    container_name: python-client
+    command: uvicorn code_client.main:app --host 0.0.0.0 --port 8001 --reload
+    ports:
+      - 8001:8001
+      - 5678:5678
+    volumes:
+      - .:/code_client
+  python-server:
+    build:
+      dockerfile: ./server.Dockerfile
+    container_name: python-server
+    command: uvicorn code_server.main:app --host 0.0.0.0 --port 8002 --reload
+    ports:
+      - 8002:8002
+      - 5679:5679
+    volumes:
+      - .:/code_server
